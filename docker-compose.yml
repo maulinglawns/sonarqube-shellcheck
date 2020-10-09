@@ -1,0 +1,25 @@
+---
+version: "3.8"
+
+services:
+  sonarqube:
+    build: .
+    ports:
+      - 9000:9000
+    environment:
+      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
+    volumes:
+      - conf:/opt/sonarqube/conf
+      - data:/opt/sonarqube/data
+      - logs:/opt/sonarqube/logs
+      - extensions:/opt/sonarqube/extensions
+
+volumes:
+  conf:
+    driver: local
+  data:
+    driver: local
+  logs:
+    driver: local
+  extensions:
+    driver: local
