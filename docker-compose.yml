@@ -2,12 +2,22 @@
 version: "3.8"
 
 services:
+  postgres:
+    image: postgres:10
+    environment:
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
   sonarqube:
     build: .
     ports:
       - 9000:9000
     environment:
-      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
+      - sonar.jdbc.username=sonar
+      - sonar.jdbc.password=sonar
+      - sonar.jdbc.url=jdbc:postgresql://postgres:5432/sonar
     volumes:
       - conf:/opt/sonarqube/conf
       - data:/opt/sonarqube/data
@@ -16,10 +26,8 @@ services:
 
 volumes:
   conf:
-    driver: local
   data:
-    driver: local
   logs:
-    driver: local
   extensions:
-    driver: local
+  postgresql:
+  postgresql_data:
