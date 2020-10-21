@@ -2,7 +2,6 @@
 
 Run Sonarqube in Docker with the shellcheck plugin
 
-### Note
 Start with:
 
 ```
@@ -14,7 +13,7 @@ Access sonarqube via:
 http://localhost/sonar/
 
 
-*NOTE:*
+### NOTE:
 
 You cannot have other services listening on port 80 on your host.<br>
 Either stop those, or change port for nginx.
