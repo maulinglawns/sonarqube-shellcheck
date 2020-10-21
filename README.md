@@ -8,8 +8,7 @@ Start with:
 sudo sysctl vm.max_map_count=262144 && docker-compose up
 ```
 
-
-Access sonarqube via:
+Access sonarqube via:<br>
 http://localhost/sonar/
 
 
