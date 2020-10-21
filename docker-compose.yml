@@ -11,7 +11,14 @@ services:
       - postgresql:/var/lib/postgresql
       - postgresql_data:/var/lib/postgresql/data
   sonarqube:
-    build: .
+    build:
+      context: .
+      dockerfile: sonarqube.Dockerfile
+    # Must set web.context when behind reverse proxy:
+    # https://github.com/SonarSource/docker-sonarqube/issues/17#issuecomment-312049277
+    command: -Dsonar.web.context=/sonar
+    depends_on:
+      - postgres
     ports:
       - 9000:9000
     environment:
@@ -23,6 +30,14 @@ services:
       - data:/opt/sonarqube/data
       - logs:/opt/sonarqube/logs
       - extensions:/opt/sonarqube/extensions
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx.Dockerfile
+    depends_on:
+      - sonarqube
+    ports:
+      - 80:80
 
 volumes:
   conf:
